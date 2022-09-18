@@ -1,0 +1,1851 @@
+[
+    {
+        "id": "5fec788e673a5c59",
+        "type": "tab",
+        "label": "Heating system",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "322b572fa9efb491",
+        "type": "tab",
+        "label": "Variables",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "bb29586d77100284",
+        "type": "tab",
+        "label": "Tests",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "d3dc65ea753e9071",
+        "type": "group",
+        "z": "322b572fa9efb491",
+        "style": {
+            "stroke": "#999999",
+            "stroke-opacity": "1",
+            "fill": "none",
+            "fill-opacity": "1",
+            "label": true,
+            "label-position": "nw",
+            "color": "#a4a4a4"
+        },
+        "nodes": [
+            "49c1b41b4d28fcf9",
+            "17f8ee9259f43dd8",
+            "77b6c3ecea904294",
+            "4f0e96476b4e435f",
+            "f30684a57b788c6f",
+            "7a452cc132a6bdba",
+            "d009ba8aae0595e5",
+            "7f4dd09cd9b7fefd",
+            "966ee4f53c58f5a3",
+            "66fac19ee8bc7be4",
+            "0b3be74664af0b7a",
+            "2c8a41f3cc39cf1b",
+            "15e7d1fdf11e30f1",
+            "adbd91556cb36378",
+            "823ea1888631daee",
+            "10aa1df490e0b954"
+        ],
+        "x": 34,
+        "y": 119
+    },
+    {
+        "id": "ee8be33c7c832c3d",
+        "type": "tasmota-mqtt-broker",
+        "name": "NAS",
+        "broker": "localhost",
+        "port": "1883",
+        "clientid": "",
+        "usetls": false,
+        "keepalive": "60",
+        "cleansession": true
+    },
+    {
+        "id": "a756fd028243b413",
+        "type": "mysql2-server",
+        "host": "127.0.0.1",
+        "port": "3307",
+        "username": "root",
+        "password": "dx0663382",
+        "db": "NodeRED",
+        "servername": "NAS"
+    },
+    {
+        "id": "e867dbc3.269d78",
+        "type": "mqtt-broker",
+        "name": "NAS MQTT server",
+        "broker": "192.168.2.2",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": "",
+        "willMsg": {},
+        "sessionExpiry": ""
+    },
+    {
+        "id": "e6c0d539602bdfd4",
+        "type": "mysql2-server",
+        "host": "wachcio.atthost24.pl",
+        "port": "",
+        "username": "11040_kotlownia",
+        "password": "Dx0663382!",
+        "db": "11040_kotlownia",
+        "servername": "Atthost"
+    },
+    {
+        "id": "e82965298e6f3e92",
+        "type": "Tasmota Sensor",
+        "z": "5fec788e673a5c59",
+        "broker": "ee8be33c7c832c3d",
+        "device": "kotlownia",
+        "name": "DS18B20",
+        "outputs": 1,
+        "uidisabler": true,
+        "fullTopic": "",
+        "cmndPrefix": "",
+        "statPrefix": "",
+        "telePrefix": "",
+        "qos": 1,
+        "retain": false,
+        "rules": [],
+        "outputTopic": "stat/kotlownia/SENSOR",
+        "x": 320,
+        "y": 40,
+        "wires": [
+            [
+                "bb5e3ef900979803",
+                "aa406ae33be8be26"
+            ]
+        ]
+    },
+    {
+        "id": "214a79999935c8fd",
+        "type": "inject",
+        "z": "5fec788e673a5c59",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 140,
+        "y": 40,
+        "wires": [
+            [
+                "e82965298e6f3e92"
+            ]
+        ]
+    },
+    {
+        "id": "33b505f7188b17b9",
+        "type": "debug",
+        "z": "5fec788e673a5c59",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 890,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "d05bce7f2253e610",
+        "type": "mysql2",
+        "z": "5fec788e673a5c59",
+        "name": "MySQL",
+        "server": "a756fd028243b413",
+        "bind": false,
+        "topic": "",
+        "x": 720,
+        "y": 40,
+        "wires": [
+            [
+                "33b505f7188b17b9"
+            ]
+        ]
+    },
+    {
+        "id": "bb5e3ef900979803",
+        "type": "function",
+        "z": "5fec788e673a5c59",
+        "name": "Write to database",
+        "func": "return newMsg = {topic:  \"INSERT INTO `temperature` (`ID`, `sensor_ID`, `temperature`, `timestamp`) VALUES (NULL, '\"+msg.payload.DS18B20.Id+\"', '\"+Number(msg.payload.DS18B20.Temperature)+\"', current_timestamp());\"};\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 510,
+        "y": 40,
+        "wires": [
+            [
+                "d05bce7f2253e610",
+                "a637034167b539b4",
+                "92d6e292db4192eb"
+            ]
+        ]
+    },
+    {
+        "id": "aa406ae33be8be26",
+        "type": "debug",
+        "z": "5fec788e673a5c59",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 490,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "ebbc9ed939760858",
+        "type": "inject",
+        "z": "5fec788e673a5c59",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "60",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 150,
+        "y": 220,
+        "wires": [
+            [
+                "3d3b8460ad33dab4",
+                "e82965298e6f3e92"
+            ]
+        ]
+    },
+    {
+        "id": "3d3b8460ad33dab4",
+        "type": "http request",
+        "z": "5fec788e673a5c59",
+        "name": "",
+        "method": "GET",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "https://fotowoltaikaapi.wachcio.pl/inverter-realtime-data/common-inverter-data",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "authType": "",
+        "x": 310,
+        "y": 220,
+        "wires": [
+            [
+                "23c1f4d86a498581"
+            ]
+        ]
+    },
+    {
+        "id": "23c1f4d86a498581",
+        "type": "json",
+        "z": "5fec788e673a5c59",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 460,
+        "y": 220,
+        "wires": [
+            [
+                "aaf29bd1ce0858bd"
+            ]
+        ]
+    },
+    {
+        "id": "aaf29bd1ce0858bd",
+        "type": "function",
+        "z": "5fec788e673a5c59",
+        "name": "Check PV prodution",
+        "func": "const PAC = msg.payload.Body?.Data?.PAC?.Value ?? 0;\nglobal.set('PV_production', PAC);\nreturn {PAC};",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 660,
+        "y": 220,
+        "wires": [
+            [
+                "0685d67d6fc03490",
+                "8f8c8e32627f738e",
+                "35b39142c7a214de"
+            ]
+        ]
+    },
+    {
+        "id": "0685d67d6fc03490",
+        "type": "debug",
+        "z": "5fec788e673a5c59",
+        "name": "Fronius",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 920,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "35b39142c7a214de",
+        "type": "function",
+        "z": "5fec788e673a5c59",
+        "name": "Is cheap tariff?",
+        "func": "const output = [null,null,null];\nconst isCheap = global.get('isCheapTariff');\nconst season = global.get('season');\nconst edge1 = global.get('edge1');\nconst edge2 = global.get('edge2');\nconst edge3 = global.get('edge3');\nconst edge4 = global.get('edge4');\n\nconst change_big_heater = (status) => {\n    global.set('heater_big',status);\n    output[0] = {payload: status,  message: `Big heater ${status}`};\n}\nconst change_small_heater = (status) => {\n    global.set('heater_small',status);\n    output[1] = {payload: status,  message: `Small heater ${status}`};\n}\nconst change_boiler = (status) => {\n    global.set('heater_boiler',status);\n    output[2] = {payload: status,  message: `Boiler heater ${status}`};\n}\n\n\nif (season=='sommer') {\n    if(isCheap.isCheapTariff() || msg.PAC > edge1 ){\n        change_boiler('ON');\n        change_big_heater('OFF');\n       change_small_heater('OFF');\n    } else {\n    change_boiler('OFF');\n       change_big_heater('OFF');\n       change_small_heater('OFF');\n    }\n} else {\n    if(isCheap.isCheapTariff()){\n       change_boiler('ON');\n       change_big_heater('ON');\n       change_small_heater('ON');\n    } else if(msg.PAC > edge1 && msg.PAC < edge2  ){\n        change_boiler('ON');\n       change_big_heater('OFF');\n       change_small_heater('OFF');\n    } else if(msg.PAC > edge2 && msg.PAC < edge3  ){\n        change_boiler('OFF');\n       change_big_heater('OFF');\n       change_small_heater('ON');\n    } else if(msg.PAC > edge3 && msg.PAC < edge4){\n        change_boiler('OFF');\n       change_big_heater('ON');\n       change_small_heater('OFF');\n    } else if(msg.PAC > edge4 ){\n        change_boiler('ON');\n       change_big_heater('ON');\n       change_small_heater('OFF');\n    }\n    \n    else {\n        change_boiler('OFF');\n       change_big_heater('OFF');\n       change_small_heater('OFF');\n    }\n     \n}\n\nreturn output;",
+        "outputs": 3,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 400,
+        "y": 460,
+        "wires": [
+            [
+                "2f7d670920da77f7",
+                "5bca51607c6d6c51",
+                "5720f508dca68180"
+            ],
+            [
+                "bdb544461d22e427",
+                "9c4e99cee35264c3"
+            ],
+            [
+                "f403a6e510400f69",
+                "0a3b6b4cf52b6673"
+            ]
+        ]
+    },
+    {
+        "id": "4397ba4842d851b8",
+        "type": "inject",
+        "z": "5fec788e673a5c59",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "Cheap tariff",
+        "payloadType": "str",
+        "x": 150,
+        "y": 460,
+        "wires": [
+            [
+                "35b39142c7a214de"
+            ]
+        ]
+    },
+    {
+        "id": "8f8c8e32627f738e",
+        "type": "change",
+        "z": "5fec788e673a5c59",
+        "name": "Save PV production",
+        "rules": [
+            {
+                "t": "set",
+                "p": "pv_production",
+                "pt": "global",
+                "to": "PAC",
+                "tot": "msg"
+            },
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "pv_production",
+                "tot": "global"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 960,
+        "y": 220,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "5bca51607c6d6c51",
+        "type": "mqtt out",
+        "z": "5fec788e673a5c59",
+        "name": "Heater 6kV",
+        "topic": "cmnd/kotlownia/POWER1",
+        "qos": "1",
+        "retain": "false",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "e867dbc3.269d78",
+        "x": 870,
+        "y": 360,
+        "wires": []
+    },
+    {
+        "id": "9c4e99cee35264c3",
+        "type": "mqtt out",
+        "z": "5fec788e673a5c59",
+        "name": "Heater 4_2kV",
+        "topic": "cmnd/kotlownia/POWER2",
+        "qos": "1",
+        "retain": "false",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "e867dbc3.269d78",
+        "x": 880,
+        "y": 460,
+        "wires": []
+    },
+    {
+        "id": "0a3b6b4cf52b6673",
+        "type": "mqtt out",
+        "z": "5fec788e673a5c59",
+        "name": "Heater boiler",
+        "topic": "cmnd/kotlownia/POWER3",
+        "qos": "1",
+        "retain": "false",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "e867dbc3.269d78",
+        "x": 870,
+        "y": 560,
+        "wires": []
+    },
+    {
+        "id": "2f7d670920da77f7",
+        "type": "debug",
+        "z": "5fec788e673a5c59",
+        "name": "debug heater big",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 890,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "bdb544461d22e427",
+        "type": "debug",
+        "z": "5fec788e673a5c59",
+        "name": "debug heater small",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 890,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "f403a6e510400f69",
+        "type": "debug",
+        "z": "5fec788e673a5c59",
+        "name": "debug heatert boiler",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 900,
+        "y": 520,
+        "wires": []
+    },
+    {
+        "id": "a637034167b539b4",
+        "type": "debug",
+        "z": "5fec788e673a5c59",
+        "name": "debug 1",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "topic",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 720,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "92d6e292db4192eb",
+        "type": "mysql2",
+        "z": "5fec788e673a5c59",
+        "name": "Atthost",
+        "server": "e6c0d539602bdfd4",
+        "bind": "",
+        "topic": "",
+        "x": 720,
+        "y": 100,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "5720f508dca68180",
+        "type": "function",
+        "z": "5fec788e673a5c59",
+        "name": "Write to database",
+        "func": "const isCheap = global.get('isCheapTariff');\nreturn newMsg = {topic:  \"INSERT INTO `state` (`ID`, `heater_big`, `heater_small`, `heater_boiler`, `season`, `pv_production`,`is_cheap_tariff`, `timestamp`) VALUES (NULL, '\"+global.get('heater_big')+\"', '\"+global.get('heater_small')+\"', '\"+global.get('heater_boiler')+\"', '\"+global.get('season')+\"', '\"+global.get('pv_production')+\"', '\"+Number(isCheap.isCheapTariff())+\"', current_timestamp());\"};\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 890,
+        "y": 280,
+        "wires": [
+            [
+                "dfcd80e0b38d1ece"
+            ]
+        ]
+    },
+    {
+        "id": "dfcd80e0b38d1ece",
+        "type": "mysql2",
+        "z": "5fec788e673a5c59",
+        "name": "Atthost",
+        "server": "e6c0d539602bdfd4",
+        "bind": "",
+        "topic": "",
+        "x": 1120,
+        "y": 280,
+        "wires": [
+            [
+                "ccbfe6a69382ef87"
+            ]
+        ]
+    },
+    {
+        "id": "ccbfe6a69382ef87",
+        "type": "debug",
+        "z": "5fec788e673a5c59",
+        "name": "debug 2",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1300,
+        "y": 280,
+        "wires": []
+    },
+    {
+        "id": "c11f89348084aa68",
+        "type": "inject",
+        "z": "322b572fa9efb491",
+        "name": "Check global variables",
+        "props": [
+            {
+                "p": "payload.pv_production",
+                "v": "pv_production",
+                "vt": "global"
+            },
+            {
+                "p": "payload.season",
+                "v": "season",
+                "vt": "global"
+            },
+            {
+                "p": "payload.edge1",
+                "v": "edge1",
+                "vt": "global"
+            },
+            {
+                "p": "payload.edge2",
+                "v": "edge2",
+                "vt": "global"
+            },
+            {
+                "p": "payload.edge3",
+                "v": "edge3",
+                "vt": "global"
+            },
+            {
+                "p": "payload.heater_boiler",
+                "v": "heater_boiler",
+                "vt": "global"
+            },
+            {
+                "p": "payload.heater_big",
+                "v": "heater_big",
+                "vt": "global"
+            },
+            {
+                "p": "payload.heater_small",
+                "v": "heater_small",
+                "vt": "global"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 160,
+        "y": 60,
+        "wires": [
+            [
+                "194d28bb9ac21367"
+            ]
+        ]
+    },
+    {
+        "id": "194d28bb9ac21367",
+        "type": "debug",
+        "z": "322b572fa9efb491",
+        "name": "global variables",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 400,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "49c1b41b4d28fcf9",
+        "type": "change",
+        "z": "322b572fa9efb491",
+        "g": "d3dc65ea753e9071",
+        "name": "Set sommer season",
+        "rules": [
+            {
+                "t": "set",
+                "p": "season",
+                "pt": "global",
+                "to": "sommer",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 340,
+        "y": 280,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "17f8ee9259f43dd8",
+        "type": "inject",
+        "z": "322b572fa9efb491",
+        "g": "d3dc65ea753e9071",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 140,
+        "y": 280,
+        "wires": [
+            [
+                "49c1b41b4d28fcf9"
+            ]
+        ]
+    },
+    {
+        "id": "77b6c3ecea904294",
+        "type": "change",
+        "z": "322b572fa9efb491",
+        "g": "d3dc65ea753e9071",
+        "name": "Set winter season",
+        "rules": [
+            {
+                "t": "set",
+                "p": "season",
+                "pt": "global",
+                "to": "winter",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 330,
+        "y": 240,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "4f0e96476b4e435f",
+        "type": "inject",
+        "z": "322b572fa9efb491",
+        "g": "d3dc65ea753e9071",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 140,
+        "y": 240,
+        "wires": [
+            [
+                "77b6c3ecea904294"
+            ]
+        ]
+    },
+    {
+        "id": "f30684a57b788c6f",
+        "type": "change",
+        "z": "322b572fa9efb491",
+        "g": "d3dc65ea753e9071",
+        "name": "Set edges",
+        "rules": [
+            {
+                "t": "set",
+                "p": "edge1",
+                "pt": "global",
+                "to": "2500",
+                "tot": "num"
+            },
+            {
+                "t": "set",
+                "p": "edge2",
+                "pt": "global",
+                "to": "4500",
+                "tot": "num"
+            },
+            {
+                "t": "set",
+                "p": "edge3",
+                "pt": "global",
+                "to": "6500",
+                "tot": "num"
+            },
+            {
+                "t": "set",
+                "p": "edge4",
+                "pt": "global",
+                "to": "8500",
+                "tot": "num"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 620,
+        "y": 500,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "7a452cc132a6bdba",
+        "type": "inject",
+        "z": "322b572fa9efb491",
+        "g": "d3dc65ea753e9071",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 150,
+        "y": 500,
+        "wires": [
+            [
+                "f30684a57b788c6f"
+            ]
+        ]
+    },
+    {
+        "id": "d009ba8aae0595e5",
+        "type": "change",
+        "z": "322b572fa9efb491",
+        "g": "d3dc65ea753e9071",
+        "name": "Set heaters OFF",
+        "rules": [
+            {
+                "t": "set",
+                "p": "heater_boiler",
+                "pt": "global",
+                "to": "OFF",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "heater_big",
+                "pt": "global",
+                "to": "OFF",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "heater_small",
+                "pt": "global",
+                "to": "OFF",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 640,
+        "y": 540,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "7f4dd09cd9b7fefd",
+        "type": "inject",
+        "z": "322b572fa9efb491",
+        "g": "d3dc65ea753e9071",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 150,
+        "y": 540,
+        "wires": [
+            [
+                "d009ba8aae0595e5"
+            ]
+        ]
+    },
+    {
+        "id": "966ee4f53c58f5a3",
+        "type": "change",
+        "z": "322b572fa9efb491",
+        "g": "d3dc65ea753e9071",
+        "name": "Set heaters ON",
+        "rules": [
+            {
+                "t": "set",
+                "p": "heater_boiler",
+                "pt": "global",
+                "to": "ON",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "heater_big",
+                "pt": "global",
+                "to": "ON",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "heater_small",
+                "pt": "global",
+                "to": "ON",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 320,
+        "y": 320,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "66fac19ee8bc7be4",
+        "type": "inject",
+        "z": "322b572fa9efb491",
+        "g": "d3dc65ea753e9071",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 140,
+        "y": 320,
+        "wires": [
+            [
+                "966ee4f53c58f5a3"
+            ]
+        ]
+    },
+    {
+        "id": "0b3be74664af0b7a",
+        "type": "change",
+        "z": "322b572fa9efb491",
+        "g": "d3dc65ea753e9071",
+        "name": "Set sommer season",
+        "rules": [
+            {
+                "t": "set",
+                "p": "season",
+                "pt": "global",
+                "to": "sommer",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 660,
+        "y": 460,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "2c8a41f3cc39cf1b",
+        "type": "inject",
+        "z": "322b572fa9efb491",
+        "g": "d3dc65ea753e9071",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 150,
+        "y": 460,
+        "wires": [
+            [
+                "15e7d1fdf11e30f1"
+            ]
+        ]
+    },
+    {
+        "id": "15e7d1fdf11e30f1",
+        "type": "function",
+        "z": "322b572fa9efb491",
+        "g": "d3dc65ea753e9071",
+        "name": "Set season according month",
+        "func": "const d = new Date();\nlet month = d.getMonth() + 1;\nif (month >= 4 || month <= 10) {\n    return {payload : \"sommer\"}\n} else {\n    return {payload : \"winter\"}\n}",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 380,
+        "y": 460,
+        "wires": [
+            [
+                "adbd91556cb36378",
+                "0b3be74664af0b7a"
+            ]
+        ]
+    },
+    {
+        "id": "adbd91556cb36378",
+        "type": "debug",
+        "z": "322b572fa9efb491",
+        "g": "d3dc65ea753e9071",
+        "name": "debug 3",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 620,
+        "y": 420,
+        "wires": []
+    },
+    {
+        "id": "823ea1888631daee",
+        "type": "comment",
+        "z": "322b572fa9efb491",
+        "g": "d3dc65ea753e9071",
+        "name": "On NodeRed start",
+        "info": "",
+        "x": 150,
+        "y": 400,
+        "wires": []
+    },
+    {
+        "id": "10aa1df490e0b954",
+        "type": "comment",
+        "z": "322b572fa9efb491",
+        "g": "d3dc65ea753e9071",
+        "name": "Set global variable",
+        "info": "",
+        "x": 410,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "7df56c08f8f1a469",
+        "type": "mysql2",
+        "z": "bb29586d77100284",
+        "name": "MySQL",
+        "server": "a756fd028243b413",
+        "bind": false,
+        "topic": "",
+        "x": 800,
+        "y": 120,
+        "wires": [
+            [
+                "9dbf8e4fc8ae26a3"
+            ]
+        ]
+    },
+    {
+        "id": "15683be80820912c",
+        "type": "function",
+        "z": "bb29586d77100284",
+        "name": "Write to database",
+        "func": "return newMsg = {topic:  \"INSERT INTO `heating` (`ID`, `switch_name`, `state`, `timestamp`) VALUES (NULL, 'R3', '\"+Number(msg.payload)+\"', current_timestamp());\"};\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 610,
+        "y": 120,
+        "wires": [
+            [
+                "7df56c08f8f1a469"
+            ]
+        ]
+    },
+    {
+        "id": "9dbf8e4fc8ae26a3",
+        "type": "debug",
+        "z": "bb29586d77100284",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 950,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "fc474f6c0a008972",
+        "type": "http request",
+        "z": "bb29586d77100284",
+        "name": "",
+        "method": "GET",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "https://fotowoltaikaapi.wachcio.pl/inverter-realtime-data/common-inverter-data",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "authType": "",
+        "senderr": true,
+        "x": 290,
+        "y": 300,
+        "wires": [
+            [
+                "8b6215c8a019fe83"
+            ]
+        ]
+    },
+    {
+        "id": "e953c00ed81eb60b",
+        "type": "debug",
+        "z": "bb29586d77100284",
+        "name": "Fronius",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 840,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "b4eeaab3f1ef9308",
+        "type": "inject",
+        "z": "bb29586d77100284",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 120,
+        "y": 300,
+        "wires": [
+            [
+                "fc474f6c0a008972"
+            ]
+        ]
+    },
+    {
+        "id": "8b6215c8a019fe83",
+        "type": "json",
+        "z": "bb29586d77100284",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 450,
+        "y": 300,
+        "wires": [
+            [
+                "18922e87f743270d"
+            ]
+        ]
+    },
+    {
+        "id": "18922e87f743270d",
+        "type": "function",
+        "z": "bb29586d77100284",
+        "name": "Check PV prodution",
+        "func": "return {PAC:msg.payload.Body?.Data?.PAC?.Value ?? 0};",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 640,
+        "y": 300,
+        "wires": [
+            [
+                "e953c00ed81eb60b"
+            ]
+        ]
+    },
+    {
+        "id": "a044027aa0b5f34f",
+        "type": "function",
+        "z": "bb29586d77100284",
+        "name": "ON/OFF",
+        "func": "const edge = 4000;\nconst onOff = msg.PAC >= edge ? true : false;\nif (onOff) return {payload:onOff, message: `PV production more than ${edge}. Heating ON`};\n\n//const isCheap = global.get('isCheapTariff')\n//if (isCheap.isCheapTariff()) return {payload:isCheap.isCheapTariff(), topic:\"cmnd/tasmota/power\", message:\"Cheap tariff. Heating ON\"};\nreturn {payload:false, topic:\"\", message:\"Heating OFF\"}",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1080,
+        "y": 40,
+        "wires": [
+            [
+                "ad876465f9fd8f09",
+                "94823160e3bdb8d5",
+                "15683be80820912c",
+                "e5c27ba8ddef256c"
+            ]
+        ]
+    },
+    {
+        "id": "ad876465f9fd8f09",
+        "type": "debug",
+        "z": "bb29586d77100284",
+        "name": "Fronius i tanie taryfy",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1280,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "fddd2138ad2b2435",
+        "type": "inject",
+        "z": "bb29586d77100284",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "ON",
+        "payloadType": "str",
+        "x": 110,
+        "y": 500,
+        "wires": [
+            [
+                "a5943d297f76170d"
+            ]
+        ]
+    },
+    {
+        "id": "5929aca4c911dad9",
+        "type": "inject",
+        "z": "bb29586d77100284",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "OFF",
+        "payloadType": "str",
+        "x": 110,
+        "y": 540,
+        "wires": [
+            [
+                "a5943d297f76170d"
+            ]
+        ]
+    },
+    {
+        "id": "2ef6ee8cc9e7dbde",
+        "type": "inject",
+        "z": "bb29586d77100284",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "ON",
+        "payloadType": "str",
+        "x": 110,
+        "y": 80,
+        "wires": [
+            [
+                "94823160e3bdb8d5"
+            ]
+        ]
+    },
+    {
+        "id": "4dc7e190629d0179",
+        "type": "inject",
+        "z": "bb29586d77100284",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "OFF",
+        "payloadType": "str",
+        "x": 110,
+        "y": 120,
+        "wires": [
+            [
+                "94823160e3bdb8d5"
+            ]
+        ]
+    },
+    {
+        "id": "cf1504a182ac4d39",
+        "type": "inject",
+        "z": "bb29586d77100284",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "ON",
+        "payloadType": "str",
+        "x": 110,
+        "y": 360,
+        "wires": [
+            [
+                "ebc70540ee1fbe9b"
+            ]
+        ]
+    },
+    {
+        "id": "8a76f04eb5efa39b",
+        "type": "inject",
+        "z": "bb29586d77100284",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "OFF",
+        "payloadType": "str",
+        "x": 110,
+        "y": 400,
+        "wires": [
+            [
+                "ebc70540ee1fbe9b"
+            ]
+        ]
+    },
+    {
+        "id": "3e4d79376ed6d8d5",
+        "type": "inject",
+        "z": "bb29586d77100284",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "TOGGLE",
+        "payloadType": "str",
+        "x": 120,
+        "y": 160,
+        "wires": [
+            [
+                "94823160e3bdb8d5"
+            ]
+        ]
+    },
+    {
+        "id": "aaf42a1c141fc46e",
+        "type": "inject",
+        "z": "bb29586d77100284",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "TOGGLE",
+        "payloadType": "str",
+        "x": 120,
+        "y": 580,
+        "wires": [
+            [
+                "a5943d297f76170d"
+            ]
+        ]
+    },
+    {
+        "id": "c54a42c419a8b489",
+        "type": "inject",
+        "z": "bb29586d77100284",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "TOGGLE",
+        "payloadType": "str",
+        "x": 120,
+        "y": 440,
+        "wires": [
+            [
+                "ebc70540ee1fbe9b"
+            ]
+        ]
+    },
+    {
+        "id": "ebc70540ee1fbe9b",
+        "type": "mqtt out",
+        "z": "bb29586d77100284",
+        "name": "Duża grzałka",
+        "topic": "cmnd/kotlownia/POWER1",
+        "qos": "1",
+        "retain": "false",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "e867dbc3.269d78",
+        "x": 330,
+        "y": 400,
+        "wires": []
+    },
+    {
+        "id": "a5943d297f76170d",
+        "type": "mqtt out",
+        "z": "bb29586d77100284",
+        "name": "Mała grzałka",
+        "topic": "cmnd/kotlownia/POWER2",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "e867dbc3.269d78",
+        "x": 330,
+        "y": 540,
+        "wires": []
+    },
+    {
+        "id": "94823160e3bdb8d5",
+        "type": "mqtt out",
+        "z": "bb29586d77100284",
+        "name": "R3",
+        "topic": "cmnd/tasmota/POWER3",
+        "qos": "1",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "e867dbc3.269d78",
+        "x": 390,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "8017920eeaed982c",
+        "type": "inject",
+        "z": "bb29586d77100284",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "ON",
+        "payloadType": "str",
+        "x": 110,
+        "y": 640,
+        "wires": [
+            [
+                "d89efccb7acc4175"
+            ]
+        ]
+    },
+    {
+        "id": "7e64c364528644c2",
+        "type": "inject",
+        "z": "bb29586d77100284",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "OFF",
+        "payloadType": "str",
+        "x": 110,
+        "y": 680,
+        "wires": [
+            [
+                "d89efccb7acc4175"
+            ]
+        ]
+    },
+    {
+        "id": "01d0490fb21b78f2",
+        "type": "inject",
+        "z": "bb29586d77100284",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "TOGGLE",
+        "payloadType": "str",
+        "x": 120,
+        "y": 720,
+        "wires": [
+            [
+                "d89efccb7acc4175"
+            ]
+        ]
+    },
+    {
+        "id": "d89efccb7acc4175",
+        "type": "mqtt out",
+        "z": "bb29586d77100284",
+        "name": "Boiler",
+        "topic": "cmnd/kotlownia/POWER3",
+        "qos": "",
+        "retain": "",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "e867dbc3.269d78",
+        "x": 310,
+        "y": 680,
+        "wires": []
+    },
+    {
+        "id": "e5c27ba8ddef256c",
+        "type": "function",
+        "z": "bb29586d77100284",
+        "name": "Is cheap tariff?",
+        "func": "const isCheap = global.get('isCheapTariff')\nif (isCheap.isCheapTariff()) return {payload:isCheap.isCheapTariff(), topic:\"cmnd/tasmota/power\", message:\"Cheap tariff. Heating ON\"};\nreturn {payload:false, topic:\"\", message:\"Heating OFF\"}",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 320,
+        "y": 240,
+        "wires": [
+            [
+                "9f24484bb027b4f8",
+                "94823160e3bdb8d5",
+                "15683be80820912c"
+            ]
+        ]
+    },
+    {
+        "id": "22e55dae7935d3a3",
+        "type": "mysql2",
+        "z": "bb29586d77100284",
+        "name": "MySQL",
+        "server": "a756fd028243b413",
+        "bind": false,
+        "topic": "",
+        "x": 820,
+        "y": 240,
+        "wires": [
+            [
+                "618c77eebaf0d04b"
+            ]
+        ]
+    },
+    {
+        "id": "9f24484bb027b4f8",
+        "type": "function",
+        "z": "bb29586d77100284",
+        "name": "Write to database",
+        "func": "return newMsg = {topic:  \"INSERT INTO `heating` (`ID`, `switch_name`, `state`, `timestamp`) VALUES (NULL, 'R1', '\"+Number(msg.payload)+\"', current_timestamp());\"};\n",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 610,
+        "y": 240,
+        "wires": [
+            [
+                "22e55dae7935d3a3"
+            ]
+        ]
+    },
+    {
+        "id": "618c77eebaf0d04b",
+        "type": "debug",
+        "z": "bb29586d77100284",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 990,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "67ebb7d61a2e68fa",
+        "type": "function",
+        "z": "bb29586d77100284",
+        "name": "Is cheap tariff?",
+        "func": "const isCheap = global.get('isCheapTariff')\nif (isCheap.isCheapTariff()) return {payload:isCheap.isCheapTariff(), topic:\"cmnd/tasmota/power\", message:\"Cheap tariff. Heating ON\"};\nreturn {payload:false, topic:\"\", message:\"Heating OFF\"}",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 1160,
+        "y": 300,
+        "wires": [
+            []
+        ]
+    }
+]
