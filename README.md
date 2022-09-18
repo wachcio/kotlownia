@@ -5,4 +5,8 @@ W projekcie znajdują się:
 - "program" odpowiadający za logikę pracy urządzenia w NodeRED uruchomionym na Synology NAS
 - ustawienia firmawere Tasmota na ESP32
 
+## Funkcje pisane w NodeRED korzystają Elektricity Cheap Tariff
+https://github.com/wachcio/cheap-electricity-tariff
+https://www.npmjs.com/package/cheap-electricity-tariff
+
 Projekt w fazie rozwoju i testów 
