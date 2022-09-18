@@ -6,7 +6,7 @@ W projekcie znajdują się:
 - ustawienia firmawere Tasmota na ESP32
 
 ## Funkcje pisane w NodeRED korzystają Elektricity Cheap Tariff
-https://github.com/wachcio/cheap-electricity-tariff
+https://github.com/wachcio/cheap-electricity-tariff 
 https://www.npmjs.com/package/cheap-electricity-tariff
 
 Projekt w fazie rozwoju i testów 
